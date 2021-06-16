@@ -1,0 +1,15 @@
+[
+  {
+    "name" : "fargate-task",
+    "image" : "701917524182.dkr.ecr.us-east-2.amazonaws.com/yanned_repo:latest",
+    "essential" : true,
+    "port_mappings" : [
+      {
+        "containerPort" : 80,
+        "hostPort" : 80
+      }
+    ],
+    "memory" : 512,
+    "cpu" : 256
+  }
+]
