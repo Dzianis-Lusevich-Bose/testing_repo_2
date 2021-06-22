@@ -7,3 +7,7 @@ provider "aws" {
 module "ecs_fargate_cluster" {
   source = "../"
 }
+
+output "ecs_fargate_cluster" {
+  value = module.ecs_fargate_cluster
+}
