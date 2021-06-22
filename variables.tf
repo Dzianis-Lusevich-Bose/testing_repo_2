@@ -19,3 +19,11 @@ variable "enable_assign_public_IP" {
 variable "desired_count" {
   default = 2
 }
+
+variable "subnet_a" {
+  default = "aws_default_subnet.fargate_subnet_a.id"
+}
+
+variable "subnet_b" {
+  default = "aws_default_subnet.fargate_subnet_b.id"
+}
