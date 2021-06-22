@@ -4,6 +4,7 @@ provider "aws" {
   region     = var.region
 }
 
+
 module "ecs_fargate_cluster" {
   source = "../"
 }

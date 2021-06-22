@@ -18,7 +18,6 @@ resource "aws_iam_role" "ecs_execution_fargaterole" {
   assume_role_policy = file("${path.module}/others/execute_role_fargate.json")
 }
 
-
 resource "aws_ecs_service" "fargate_service" {
   name            = "fargate-service"
   cluster         = aws_ecs_cluster.fargate_cluster.id
