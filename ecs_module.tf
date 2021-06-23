@@ -18,12 +18,6 @@ resource "aws_iam_role" "ecs_execution_fargaterole" {
   assume_role_policy = file("${path.module}/others/execute_role_fargate.json")
 }
 
-resource "aws_iam_role_policy_attachment" "ecsTaskExecutionRole_policy" {
-  role       = "${aws_iam_role.ecs_execution_fargaterole.name}"
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
-}
-
-
 resource "aws_ecs_service" "fargate_service" {
   name            = "fargate-service"
   cluster         = aws_ecs_cluster.fargate_cluster.id
@@ -39,6 +33,8 @@ resource "aws_ecs_service" "fargate_service" {
 }
 
 resource "aws_default_vpc" "fargate_vpc" {
+  enable_dns_support   = true
+  enable_dns_hostnames = true
   tags = {
     Name = "fargate_vpc"
   }
