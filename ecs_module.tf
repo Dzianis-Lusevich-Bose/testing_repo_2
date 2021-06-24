@@ -17,9 +17,14 @@ resource "aws_iam_role" "ecs_execution_fargaterole" {
   assume_role_policy = file("${path.module}/others/execute_role_fargate.json")
 }
 
-resource "aws_iam_role_policy_attachment" "ecsTaskExecutionRole_policy" {
+resource "aws_iam_policy" "fargatePolicy" {
+  name   = "fargatePolicy1"
+  policy = file("${path.module}/others/fargate_policy.json")
+}
+
+resource "aws_iam_role_policy_attachment" "fargate_attachment" {
   role       = aws_iam_role.ecs_execution_fargaterole.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+  policy_arn = aws_iam_policy.fargatePolicy.arn
 }
 
 resource "aws_ecs_service" "fargate_service" {
@@ -32,6 +37,7 @@ resource "aws_ecs_service" "fargate_service" {
   network_configuration {
     subnets          = ["${aws_default_subnet.fargate_subnet_a.id}", "${aws_default_subnet.fargate_subnet_b.id}"]
     assign_public_ip = var.enable_assign_public_IP
+    security_groups  = ["${aws_security_group.ecs_sg.id}"]
   }
 }
 
@@ -59,23 +65,16 @@ resource "aws_security_group" "ecs_sg" {
   vpc_id = aws_default_vpc.fargate_vpc.id
 
   ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
     from_port   = 0
-    to_port     = 65535
-    protocol    = "tcp"
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
