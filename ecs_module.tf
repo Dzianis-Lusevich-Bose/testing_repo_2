@@ -28,7 +28,7 @@ resource "aws_iam_role_policy_attachment" "fargate_attachment" {
 }
 
 resource "aws_ecs_service" "fargate_service" {
-  name            = "fargate-service"
+  name            = "fargate-service-1"
   cluster         = aws_ecs_cluster.fargate_cluster.id
   task_definition = aws_ecs_task_definition.fargate_task.arn
   launch_type     = "FARGATE"
