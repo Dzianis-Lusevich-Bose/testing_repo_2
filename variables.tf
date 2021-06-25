@@ -1,10 +1,10 @@
 
 variable "fargate_cluster_name" {
-  default = "fargate-cluster"
+  default = "fargate-cluster-1"
 }
 
 variable "fargate_task_name" {
-  default = "fargate-task"
+  default = "fargate-task-1"
 }
 
 variable "requires_compatibilities_fargate_task" {
