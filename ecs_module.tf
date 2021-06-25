@@ -16,7 +16,18 @@ resource "aws_ecs_task_definition" "fargate_task" {
 resource "aws_iam_role" "ecs_execution_fargaterole" {
   name               = "ecs-execution-fargaterole"
   assume_role_policy = file("${path.module}/others/execute_role_fargate.json")
+ }
+
+resource "aws_iam_policy" "fargatePolicy" {
+  name   = "fargatePolicy1"
+  policy = file("${path.module}/others/fargate_policy.json")
 }
+
+resource "aws_iam_role_policy_attachment" "fargate_attachment" {
+  role       = aws_iam_role.ecs_execution_fargaterole.name
+  policy_arn = aws_iam_policy.fargatePolicy.arn
+}
+
 
 resource "aws_ecs_service" "fargate_service" {
   name            = "fargate-service"
