@@ -64,3 +64,21 @@ resource "aws_default_subnet" "fargate_subnet_b" {
     Name = "fargate_subnet_b"
   }
 }
+
+resource "aws_security_group" "ecs_sg" {
+  vpc_id = aws_default_vpc.fargate_vpc.id
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
