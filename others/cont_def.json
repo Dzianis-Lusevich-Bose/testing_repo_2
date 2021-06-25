@@ -1,4 +1,4 @@
-k[
+[
   {
     "name" : "fargate-task",
     "image" : "denkor142/terraform:latest",
