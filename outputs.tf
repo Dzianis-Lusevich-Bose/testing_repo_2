@@ -14,7 +14,7 @@ output "task_definition_arn" {
   value = aws_ecs_task_definition.fargate_task.id
 }
 
-output "iam_tole_id" {
+output "iam_role_id" {
   value = aws_iam_role.ecs_execution_fargaterole.arn
 }
 
