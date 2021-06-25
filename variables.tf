@@ -1,10 +1,29 @@
 
 variable "fargate_cluster_name" {
-  default = "fargate-cluster-1"
+  default = "fargate-cluster"
 }
 
 variable "fargate_task_name" {
-  default = "fargate-task-1"
+  default = "fargate-task"
+}
+
+variable "memory" {
+  default = "512"
+}
+
+variable "cpu" {
+  default = "256"
+}
+
+variable "ecs_execution_fargaterole" {
+  default = "execution-fargate-role"
+}
+variable "fargatePolicy" {
+  default = "ecs_fargate_policy"
+}
+
+variable "fargate_service_name" {
+  default = "ecs-fargate-service"
 }
 
 variable "requires_compatibilities_fargate_task" {

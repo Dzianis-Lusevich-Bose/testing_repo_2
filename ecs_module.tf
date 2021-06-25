@@ -7,18 +7,18 @@ resource "aws_ecs_task_definition" "fargate_task" {
   container_definitions    = file("${path.module}/others/cont_def.json")
   requires_compatibilities = var.requires_compatibilities_fargate_task
   network_mode             = "awsvpc"
-  memory                   = 512
-  cpu                      = 256
+  memory                   = var.memory
+  cpu                      = var.cpu
   execution_role_arn       = aws_iam_role.ecs_execution_fargaterole.arn
 }
 
 resource "aws_iam_role" "ecs_execution_fargaterole" {
-  name               = "ecs-execution-fargaterole"
+  name               = var.ecs_execution_fargaterole
   assume_role_policy = file("${path.module}/others/execute_role_fargate.json")
 }
 
 resource "aws_iam_policy" "fargatePolicy" {
-  name   = "fargatePolicy1"
+  name   = var.fargatePolicy
   policy = file("${path.module}/others/fargate_policy.json")
 }
 
@@ -28,7 +28,7 @@ resource "aws_iam_role_policy_attachment" "fargate_attachment" {
 }
 
 resource "aws_ecs_service" "fargate_service" {
-  name            = "fargate-service-1"
+  name            = var.fargate_service_name
   cluster         = aws_ecs_cluster.fargate_cluster.id
   task_definition = aws_ecs_task_definition.fargate_task.arn
   launch_type     = "FARGATE"
