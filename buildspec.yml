@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - apt-get update
+      - apt install git -y
+      - apt install awscli -y
+      - apt-get update && apt-get install -y gnupg software-properties-common curl
+      - curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
+      - apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+      - apt-get update && apt-get install terraform       
+      - echo Make clone gitrepo with terraform code...
+      - terraform --version
+      - aws --version
+      - ls -l
+      - pwd
+      - terraform init
+      - terraform apply -auto-approve
