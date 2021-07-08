@@ -1,7 +1,7 @@
 [
   {
     "name" : "fargate-task",
-    "image" : "701917524182.dkr.ecr.eu-west-2.amazonaws.com/yanned:latest",
+    "image" : "701917524182.dkr.ecr.eu-west-2.amazonaws.com/yanned:37a753c",
     "cpu" : 256,
     "memory" : 512,
     "essential" : true,
